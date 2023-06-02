@@ -145,11 +145,14 @@ console.log(refillableMarker.print('ffuyghjmjikmjuhtftgjnjijiuh'));
 
 // завдання 5
 
+let workers = [];
+
 class Worker {
     constructor (fullName, dayRate, workingDays) {
         this.fullName = fullName;
         this.dayRate = dayRate;
         this.workingDays = workingDays;
+        workers.push(this)
     };
 
     showSalary() {
@@ -172,6 +175,11 @@ class Worker {
         if (value < 0) throw new Error('Negative meaning');
         this.#experience = value;
     };
+
+    static sorted(){
+        return workers.sort((a, b) => a.experiense - b.experiense).map(worker => {
+            return(`${worker.fullName}: ${worker.dayRate * worker.workingDays}`)});
+    }
     
 };
 
@@ -205,9 +213,4 @@ worker3.experiense = 1.3;
 console.log("New experience: " + worker3.experiense);
 console.log(worker3.showSalaryWithExperience());
 
-const workers = [worker1, worker2, worker3];
-
-console.log('Sorted salary:');
-
-workers.sort((a, b) => a.experiense - b.experiense).map(worker => {
-    console.log(`${worker.fullName}: ${worker.dayRate * worker.workingDays}`)});
+console.log((Worker.sorted()));
